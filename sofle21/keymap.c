@@ -7,6 +7,7 @@
 #define HSV_OVERRIDE_HELP(h, s, v, Override) h, s , Override
 #define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv,Override)
 
+/*
 // Light combinations
 #define SET_INDICATORS(hsv) \
 	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
@@ -44,6 +45,7 @@
 	  {35+ 7, 4, hsv}, \
 		{25, 2, hsv}, \
 	  {35+ 25, 2, hsv}
+*/
 
 enum sofle_layers {
     _DEFAULTS = 0,
@@ -78,23 +80,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5,                                                      KC_6, KC_7, KC_8, KC_9, KC_0, KC_TRNS,
-    TO(_BASE), KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, KC_NO,                                       KC_NO, KC_RCBR, KC_RPRN, KC_RBRC, KC_GT, KC_PIPE,
-    KC_TRNS, LG_COLN, KC_MINS, LA_PLUS, LCTL_T(KC_EQL), KC_ASTR, KC_MUTE,              KC_MUTE, KC_UNDS, RCTL_T(KC_BSLS), LALT_T(KC_COMM), KC_DOT, RGUI_T(KC_SLSH), KC_TRNS,
-    KC_NO, KC_NO, TO(_RAISE), KC_TRNS, KC_TRNS,                                                 KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO
+    TO(_BASE), KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, KC_NO,                                         KC_NO, KC_RCBR, KC_RPRN, KC_RBRC, KC_GT, KC_PIPE,
+    KC_TRNS, LG_COLN, KC_MINS, LA_PLUS, LCTL_T(KC_EQL), KC_ASTR, RM_TOGG,              RM_TOGG, KC_UNDS, RCTL_T(KC_BSLS), LALT_T(KC_COMM), KC_DOT, RGUI_T(KC_SLSH), KC_TRNS,
+    TO(_ADJUST), KC_NO, TO(_RAISE), KC_TRNS, KC_TRNS,                                           KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_RAISE] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                                 KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-    TO(_BASE), KC_PGDN, KC_PGUP, KC_HOME, KC_END, KC_PSCR,                                    KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_INS, KC_F12,
-    KC_TRNS, KC_LGUI, KC_NO, KC_LALT, KC_LCTL, KC_NO, KC_MUTE,                         KC_MUTE, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_LGUI, KC_TRNS,
-    KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                                                    TO(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
+    TO(_BASE), KC_PGDN, KC_PGUP, KC_HOME, KC_END, KC_PSCR,                                      KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_INS, KC_F12,
+    KC_TRNS, KC_LGUI, KC_NO, KC_LALT, KC_LCTL, KC_NO, RM_TOGG,                         RM_TOGG, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_LGUI, KC_TRNS,
+    TO(_ADJUST), KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                                              TO(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_ADJUST] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    TO(_BASE), KC_NO, KC_NO, KC_NO, KC_NO, KC_CAPS,                                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    TO(_BASE), KC_NO, KC_NO, KC_NO, KC_NO, KC_CAPS,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_UNDO, KC_CUT, KC_COPY, KC_PSTE, KC_NO, DT_PRNT,                          KC_MUTE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_TRNS,                                                    KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO
+    KC_TRNS, KC_NO, TO(_RAISE), KC_TRNS, KC_TRNS,                                               TO(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_GAMING] = LAYOUT(
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,                                                       KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO,
@@ -111,26 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
   )
 };
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case RALT(KC_W):
-    case RALT(KC_O):
-    case LGUI(KC_Z):
-    case LALT(KC_C):
-    case LCTL(KC_V):
-    case RCTL(KC_M):
-    case LG_COLN:
-    case LA_PLUS:
-    case LCTL(KC_EQL):
-    case RCTL(KC_BSLS):
-    case LALT(KC_COMM):
-    case RGUI(KC_SLSH):
-    //   return TAPPING_TERM - 30;
-    default:
-      return TAPPING_TERM;
-  }
-}
 
 bool run_on_tap(uint16_t keycode, keyrecord_t *record) {
   if (record->tap.count && record->event.pressed) {
@@ -150,96 +132,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// #define RGBLIGHT_ENABLE
-#ifdef RGBLIGHT_ENABLE
-char layer_state_str[70];
-// Now define the array of layers. Later layers take precedence
-
-// QWERTY,
-// Light on inner column and underglow
-const rgblight_segment_t PROGMEM layer_qwerty_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_RED)
-
-);
-const rgblight_segment_t PROGMEM layer_colemakdh_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_PINK)
-);
-
-// _NUM,
-// Light on outer column and underglow
-const rgblight_segment_t PROGMEM layer_num_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_TEAL)
-
-);
-// _SYMBOL,
-// Light on inner column and underglow
-const rgblight_segment_t PROGMEM layer_symbol_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_BLUE)
-
-    );
-// _COMMAND,
-// Light on inner column and underglow
-const rgblight_segment_t PROGMEM layer_command_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_PURPLE)
-);
-
-//_GAMING
-const rgblight_segment_t PROGMEM layer_gaming_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_INDICATORS(HSV_ORANGE),
-    SET_UNDERGLOW(HSV_ORANGE),
-	SET_GAMING(HSV_BLUE),
-    {7, 4, HSV_ORANGE},
-    {25, 2, HSV_ORANGE},
-    {35+6, 4, HSV_ORANGE},
-    {35+25, 2, HSV_ORANGE}
-    );
-
-// _GAMING_R2L
-
-// _SWITCHER   // light up top row
-const rgblight_segment_t PROGMEM layer_switcher_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_GREEN),
-	SET_NUMROW(HSV_GREEN)
-);
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    layer_qwerty_lights,
-	layer_num_lights,// overrides layer 1
-	layer_symbol_lights,
-    layer_command_lights,
-	layer_gaming_lights,
-	layer_switcher_lights,  // Overrides other layers
-	layer_colemakdh_lights
-);
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-	rgblight_set_layer_state(0, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_BASE));
-	// rgblight_set_layer_state(7, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_COLEMAKDH));
-	rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
-	rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
-	rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
-	rgblight_set_layer_state(4, layer_state_cmp(state, _GAMING));
-	rgblight_set_layer_state(5, layer_state_cmp(state, _GAMING_R2L));
-    return state;
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RALT(KC_W):
+    case RALT(KC_O):
+    case LGUI(KC_Z):
+    case LALT(KC_C):
+    case LCTL(KC_V):
+    case RCTL(KC_M):
+    case LG_COLN:
+    case LA_PLUS:
+    case LCTL(KC_EQL):
+    case RCTL(KC_BSLS):
+    case LALT(KC_COMM):
+    case RGUI(KC_SLSH):
+    //   return TAPPING_TERM - 30;
+    default:
+      return TAPPING_TERM;
+  }
 }
-void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
+#endif
 
-	rgblight_mode(10);// haven't found a way to set this in a more useful way
-
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+  // Disabling blinding indicator
+  // TODO: Disable it for right hand as well
+  rgb_matrix_set_color(0,0,0,0);
+  return false;
 }
 #endif
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
-    [_LOWER] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
-    [_RAISE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
+    [_LOWER] = { ENCODER_CCW_CW(RM_SPDD, RM_SPDU), ENCODER_CCW_CW(RM_SATU, RM_SATD), },
+    [_RAISE] = { ENCODER_CCW_CW(RM_NEXT, RM_PREV), ENCODER_CCW_CW(RM_VALU, RM_VALD), },
     #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-    [_ADJUST] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(DT_DOWN, DT_UP), },
+    [_ADJUST] = { ENCODER_CCW_CW(RM_HUEU, RM_HUED), ENCODER_CCW_CW(DT_DOWN, DT_UP), },
     #else
-    [_ADJUST] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
+    [_ADJUST] = { ENCODER_CCW_CW(RM_HUEU, RM_HUED), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
     #endif
     [_GAMING] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
     [_GAMING_R2L] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLU, MS_WHLD), },
@@ -260,10 +192,10 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("Base"), false);
             break;
         case _RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+            oled_write_P(PSTR("Raise"), false);
             break;
         case _LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("Lower"), false);
             break;
         case _ADJUST:
             oled_write_ln_P(PSTR("Adj"), false);
@@ -272,7 +204,7 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("Game"), false);
             break;
         case _GAMING_R2L:
-            oled_write_ln_P(PSTR("Game2"), false);
+            oled_write_P(PSTR("Game2"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
