@@ -7,46 +7,6 @@
 #define HSV_OVERRIDE_HELP(h, s, v, Override) h, s , Override
 #define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv,Override)
 
-/*
-// Light combinations
-#define SET_INDICATORS(hsv) \
-	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, hsv}
-#define SET_UNDERGLOW(hsv) \
-	{1, 6, hsv}, \
-    {35+1, 6,hsv}
-#define SET_GAMING(hsv)     \
-	{35+15, 5, hsv},\
-	  {35+22, 3, hsv},\
-	  {35+27, 3, hsv}
-#define SET_NUMROW(hsv) \
-	{10, 2, hsv}, \
-		{20, 2, hsv}, \
-		{30, 2, hsv}, \
-	  {35+ 10, 2, hsv}, \
-	  {35+ 20, 2, hsv}, \
-	  {35+ 30, 2, hsv}
-#define SET_INNER_COL(hsv)	\
-	{33, 4, hsv}, \
-	  {35+ 33, 4, hsv}
-
-#define SET_OUTER_COL(hsv) \
-	{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}
-#define SET_THUMB_CLUSTER(hsv) 	\
-	{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
-#define SET_LAYER_ID(hsv) 	\
-	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-		{1, 6, hsv}, \
-    {35+1, 6, hsv}, \
-		{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}, \
-		{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
-*/
-
 enum sofle_layers {
     _DEFAULTS = 0,
     _BASE = 0,
@@ -157,7 +117,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
   // Disabling blinding indicator
-  // TODO: Disable it for right hand as well
   rgb_matrix_set_color(0,0,0,0);
   return false;
 }
@@ -219,14 +178,14 @@ static void print_status_narrow(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_0;
     }
-    return rotation;
+    return OLED_ROTATION_270;
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
+    if (!is_keyboard_master()) {
         print_status_narrow();
     } else {
         draw_bongo();
