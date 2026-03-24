@@ -22,6 +22,7 @@ enum custom_keycodes {
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
+    // TODO: Check if it's necessary
     KC_D_MUTE
 };
 
@@ -29,34 +30,54 @@ enum custom_keycodes {
 #define LG_COLN LGUI_T(KC_SCLN)
 #define LA_PLUS LALT_T(KC_PLUS)
 
+//Left Home Row
+#define LG_LT LGUI_T(KC_LT)
+#define LA_LBRC LALT_T(KC_LBRC)
+#define LC_LPRN LCTL_T(KC_LPRN)
+
+#define LG_PGDN LGUI_T(KC_PGDN)
+#define LA_PGUP LALT_T(KC_PGUP)
+#define LC_HOME LCTL_T(KC_HOME)
+
+//Right Home Row
+#define RC_RPRN RCTL_T(KC_RPRN)
+#define LA_RBRC LALT_T(KC_RBRC)
+#define RG_GT RGUI_T(KC_GT)
+
+#define RC_UP RCTL_T(KC_UP)
+#define LA_RGHT LALT_T(KC_RGHT)
+#define RG_INS RCTL_T(KC_INS)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     KC_APP, KC_1, KC_2, KC_3, KC_4, KC_5,                                                       KC_6, KC_7, KC_8, KC_9, KC_0, KC_PSCR,
     KC_TAB, KC_Q, RALT_T(KC_W), KC_E, KC_R, KC_T,                                               KC_Y, KC_U, KC_I, RALT_T(KC_O), KC_P, KC_BSPC,
-    KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G,                                                       KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-    KC_GRV, LGUI_T(KC_Z), KC_X, LALT_T(KC_C), LCTL_T(KC_V), KC_B, KC_MUTE,             KC_MUTE, KC_N, RCTL_T(KC_M), LALT_T(KC_COMM), KC_DOT, RGUI_T(KC_SLSH), KC_DEL,
-    TO(_ADJUST), KC_NO, TO(_RAISE), KC_SPC, KC_ENT,                                             TO(_LOWER), KC_LSFT, KC_RALT, KC_NO, TG(_GAMING)
+    KC_ESC, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), KC_F, KC_G,                               KC_H, KC_J, RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
+    KC_GRV, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,                                              KC_MUTE, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_DEL,
+    // KC_GRV, LGUI_T(KC_Z), KC_X, LALT_T(KC_C), LCTL_T(KC_V), KC_B, KC_MUTE,          KC_MUTE, KC_N, RCTL_T(KC_M), LALT_T(KC_COMM), KC_DOT, RGUI_T(KC_SLSH), KC_DEL,
+    OSL(_ADJUST), KC_NO, OSL(_RAISE), KC_SPC, KC_ENT,                                             OSL(_LOWER), KC_LSFT, KC_RALT, KC_NO, TG(_GAMING)
   ),
   [_LOWER] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5,                                                      KC_6, KC_7, KC_8, KC_9, KC_0, KC_TRNS,
-    TO(_BASE), KC_LT, KC_LBRC, KC_LPRN, KC_LCBR, KC_NO,                                         KC_NO, KC_RCBR, KC_RPRN, KC_RBRC, KC_GT, KC_PIPE,
+    OSL(_LOWER), LG_LT, LA_LBRC, LC_LPRN, KC_LCBR, KC_NO,                                         KC_NO, KC_RCBR, RC_RPRN, LA_RBRC, RG_GT, KC_PIPE,
+    // TO(_BASE), LG_LT, LA_LBRC, LC_LPRN, KC_LCBR, KC_NO,                                         KC_NO, KC_RCBR, RC_RPRN, LA_RBRC, RG_GT, KC_PIPE,
     KC_TRNS, LG_COLN, KC_MINS, LA_PLUS, LCTL_T(KC_EQL), KC_ASTR, RM_TOGG,              RM_TOGG, KC_UNDS, RCTL_T(KC_BSLS), LALT_T(KC_COMM), KC_DOT, RGUI_T(KC_SLSH), KC_TRNS,
-    TO(_ADJUST), KC_NO, TO(_RAISE), KC_TRNS, KC_TRNS,                                           KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO
+    OSL(_ADJUST), KC_NO, OSL(_RAISE), KC_TRNS, KC_TRNS,                                           KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_RAISE] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                                 KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-    TO(_BASE), KC_PGDN, KC_PGUP, KC_HOME, KC_END, KC_PSCR,                                      KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_INS, KC_F12,
+    OSL(_RAISE), KC_PGDN, KC_PGUP, KC_HOME, KC_END, KC_PSCR,                                      KC_LEFT, KC_DOWN, RC_UP, LA_RGHT, RG_INS, KC_F12,
     KC_TRNS, KC_LGUI, KC_NO, KC_LALT, KC_LCTL, KC_NO, RM_TOGG,                         RM_TOGG, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_LGUI, KC_TRNS,
-    TO(_ADJUST), KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                                              TO(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
+    OSL(_ADJUST), KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                                              OSL(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_ADJUST] = LAYOUT(
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    TO(_BASE), KC_NO, KC_NO, KC_NO, KC_NO, KC_CAPS,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    OSL(_ADJUST), KC_NO, KC_NO, KC_NO, KC_NO, KC_CAPS,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_UNDO, KC_CUT, KC_COPY, KC_PSTE, KC_NO, DT_PRNT,                          KC_MUTE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_TRNS, KC_NO, TO(_RAISE), KC_TRNS, KC_TRNS,                                               TO(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
+    KC_TRNS, KC_NO, OSL(_RAISE), KC_TRNS, KC_TRNS,                                               OSL(_LOWER), KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   [_GAMING] = LAYOUT(
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5,                                                       KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO,
@@ -88,6 +109,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return run_on_tap(KC_COLN, record);
         case LA_PLUS:
             return run_on_tap(KC_PLUS, record);
+        case LG_LT:
+            return run_on_tap(KC_LT, record);
+        case LA_LBRC:
+            return run_on_tap(KC_LBRC, record);
+        case LC_LPRN:
+            return run_on_tap(KC_LPRN, record);
+        case LG_PGDN:
+            return run_on_tap(KC_PGDN, record);
+        case LA_PGUP:
+            return run_on_tap(KC_PGUP, record);
+        case LC_HOME:
+            return run_on_tap(KC_HOME, record);
+        case RC_RPRN:
+            return run_on_tap(KC_RPRN, record);
+        case LA_RBRC:
+            return run_on_tap(KC_RBRC, record);
+        case RG_GT:
+            return run_on_tap(KC_GT, record);
+        case RC_UP:
+            return run_on_tap(KC_UP, record);
+        case LA_RGHT:
+            return run_on_tap(KC_RGHT, record);
+        case RG_INS:
+            return run_on_tap(KC_INS, record);
     }
     return true;
 }
@@ -107,6 +152,18 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case RCTL(KC_BSLS):
     case LALT(KC_COMM):
     case RGUI(KC_SLSH):
+    case LG_LT:
+    case LA_LBRC:
+    case LC_LPRN:
+    case LG_PGDN:
+    case LA_PGUP:
+    case LC_HOME:
+    case RC_RPRN:
+    case LA_RBRC:
+    case RG_GT:
+    case RC_UP:
+    case LA_RGHT:
+    case RG_INS:
     //   return TAPPING_TERM - 30;
     default:
       return TAPPING_TERM;
@@ -178,14 +235,14 @@ static void print_status_narrow(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_0;
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;
     }
-    return OLED_ROTATION_270;
+    return rotation;
 }
 
 bool oled_task_user(void) {
-    if (!is_keyboard_master()) {
+    if (is_keyboard_master()) {
         print_status_narrow();
     } else {
         draw_bongo();
