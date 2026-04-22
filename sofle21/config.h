@@ -2,14 +2,11 @@
 
 #define MASTER_LEFT
 
-// #define CUSTOM_FONT
-//Why does only Sofle configs have this? It's not even in QMK's docs
-// #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
 #define TAPPING_TERM 180
 #define TAPPING_TERM_PER_KEY
 #define QUICK_TAP_TERM 100
-#define TAPPING_TOGGLE 2
+#define TAPPING_TOGGLE 1
 #define ONESHOT_TAP_TOGGLE 2
 
 #define ENCODER_DIRECTION_FLIP
@@ -19,8 +16,6 @@
 
 
 #define RGBLIGHT_SLEEP
-//
-// #define RGBLIGHT_LAYERS
 
 /* ws2812 RGB LED */
 #define WS2812_DI_PIN D3
