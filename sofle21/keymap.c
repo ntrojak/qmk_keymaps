@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_PIPE, KC_PERC,                                         KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS,
     KC_TRNS, LG_UNDS, LA_MINS, LC_PLUS, LS_EQL, KC_COMM,                                        KC_DOT, RS_4, RC_5, LA_6, RG_0, KC_PIPE,
-    KC_QUES, KC_COLN, KC_CIRC, KC_AMPR, KC_DLR, KC_ASTR, RM_TOGG,                      RM_TOGG, KC_BSLS, KC_1, KC_2, KC_3, KC_SLSH, KC_TRNS,
+    KC_AMPR, KC_CIRC, KC_QUES, KC_COLN, KC_DLR, KC_ASTR, RM_TOGG,                      RM_TOGG, KC_BSLS, KC_1, KC_2, KC_3, KC_SLSH, KC_TRNS,
     KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,                                                      TT(_ADJUST), KC_TRNS, TO(0), KC_NO, KC_NO
   ),
   [_RAISE] = LAYOUT(
@@ -147,11 +147,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case LSFT_T(KC_F):
+    case RSFT_T(KC_J):
     case LS_DLR:
     case LS_RCBR:
     case RS_4:
     case RS_DOWN:
-      return TAPPING_TERM - 50;
+      return TAPPING_TERM - 30;
+    case LCTL_T(KC_D):
+    case RCTL_T(KC_K):
     case LC_AMPR:
     case LC_LCBR:
     case RC_5:
