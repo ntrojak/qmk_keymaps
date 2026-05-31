@@ -21,6 +21,10 @@ enum sofle_layers {
 
 //Left Home Row
 #define LG_UNDS LGUI_T(KC_UNDS)
+#define LA_MINS LALT_T(KC_MINS)
+#define LC_PLUS LCTL_T(KC_PLUS)
+#define LS_EQL LSFT_T(KC_EQL)
+
 #define LA_CIRC LALT_T(KC_CIRC)
 #define LC_AMPR LCTL_T(KC_AMPR)
 #define LS_DLR LSFT_T(KC_DLR)
@@ -51,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
     TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_PIPE, KC_PERC,                                         KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS,
-    KC_TRNS, LG_UNDS, LA_CIRC, LC_AMPR, LS_DLR, KC_COMM,                                        KC_DOT, RS_4, RC_5, LA_6, RG_0, KC_PIPE,
-    KC_QUES, KC_COLN, KC_MINS, KC_PLUS, KC_EQL, KC_ASTR, RM_TOGG,                      RM_TOGG, KC_BSLS, KC_1, KC_2, KC_3, KC_SLSH, KC_TRNS,
+    KC_TRNS, LG_UNDS, LA_MINS, LC_PLUS, LS_EQL, KC_COMM,                                        KC_DOT, RS_4, RC_5, LA_6, RG_0, KC_PIPE,
+    KC_QUES, KC_COLN, KC_CIRC, KC_AMPR, KC_DLR, KC_ASTR, RM_TOGG,                      RM_TOGG, KC_BSLS, KC_1, KC_2, KC_3, KC_SLSH, KC_TRNS,
     KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,                                                      TT(_ADJUST), KC_TRNS, TO(0), KC_NO, KC_NO
   ),
   [_RAISE] = LAYOUT(
@@ -104,12 +108,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LG_UNDS:
           return run_on_tap(KC_UNDS, record);
-        case LA_CIRC:
-          return run_on_tap(KC_CIRC, record);
-        case LC_AMPR:
-          return run_on_tap(KC_AMPR, record);
-        case LS_DLR:
-          return run_on_tap(KC_DLR, record);
+        case LA_MINS:
+          return run_on_tap(KC_MINS, record);
+        case LC_PLUS:
+          return run_on_tap(KC_PLUS, record);
+        case LS_EQL:
+          return run_on_tap(KC_EQL, record);
+
 
         case LG_LPRN:
           return run_on_tap(KC_LPRN, record);
@@ -124,8 +129,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return run_on_tap(KC_4, record);
         case RC_5:
           return run_on_tap(KC_5, record);
-        // case LA_6:
-        //   return run_on_tap(KC_6, record);
+        case LA_6:
+          return run_on_tap(KC_6, record);
         case RG_0:
           return run_on_tap(KC_0, record);
 
