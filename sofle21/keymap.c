@@ -50,26 +50,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q, RALT_T(KC_W), KC_E, KC_R, KC_T,                                               KC_Y, KC_U, KC_I, RALT_T(KC_O), KC_P, KC_BSPC,
     KC_ESC, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G,                       KC_H, RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), RGUI_T(KC_SCLN), KC_QUOT,
     KC_GRV, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,                                     KC_PSCR, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_DEL,
-    KC_NO, KC_NO, TT(_LOWER), KC_SPC, KC_ENT,                                                   TT(_RAISE), KC_LSFT, KC_RALT, KC_NO, TG(_GAMING)
+    KC_NO, KC_NO, OSL(_LOWER), KC_SPC, KC_ENT,                                                  OSL(_RAISE), KC_LSFT, KC_RALT, KC_NO, TT(_GAMING)
   ),
   [_LOWER] = LAYOUT(
-    TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR,                                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_PIPE, KC_PERC,                                         KC_NO, KC_7, KC_8, KC_9, KC_NO, KC_TRNS,
     KC_TRNS, LG_UNDS, LA_MINS, LC_PLUS, LS_EQL, KC_COMM,                                        KC_DOT, RS_4, RC_5, LA_6, RG_0, KC_PIPE,
     KC_AMPR, KC_CIRC, KC_QUES, KC_COLN, KC_DLR, KC_ASTR, RM_TOGG,                      RM_TOGG, KC_BSLS, KC_1, KC_2, KC_3, KC_SLSH, KC_TRNS,
-    KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,                                                      TT(_ADJUST), KC_TRNS, TO(0), KC_NO, KC_NO
+    KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS,                                                    MO(_ADJUST), KC_TRNS, TO(0), KC_NO, KC_NO
   ),
   [_RAISE] = LAYOUT(
-    TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    TO(0), KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR,                                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_LT, KC_GT, KC_LBRC, KC_RBRC, KC_NO,                                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, 
     KC_TRNS, LG_LPRN, LA_RPRN, LC_LCBR, LS_RCBR, KC_NO,                                         KC_LEFT, RS_DOWN, RC_UP, LA_RGHT, KC_RGUI, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RM_TOGG,                                 RM_TOGG, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_NO, KC_TRNS,
-    KC_NO, KC_NO, TT(_ADJUST), KC_TRNS, KC_TRNS,                                                KC_NO, KC_TRNS, TO(0), KC_NO, KC_NO
+    KC_NO, KC_NO, MO(_ADJUST), KC_TRNS, KC_TRNS,                                                KC_TRNS, KC_TRNS, TO(0), KC_NO, KC_NO
   ),
   [_ADJUST] = LAYOUT(
     TO(0), KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT,                                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                 KC_NO, KC_F7, KC_F8, KC_F9, KC_F12, KC_TRNS,
-    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_PSCR,                                       KC_NO, KC_F4, KC_F5, KC_F6, KC_F11, KC_NO,
+    KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO,                                         KC_NO, KC_F4, KC_F5, KC_F6, KC_F11, KC_NO,
     KC_NO, KC_UNDO, KC_CUT, KC_COPY, KC_PSTE, KC_CAPS, DT_PRNT,                        KC_MUTE, KC_NO, KC_F1, KC_F2, KC_F3, KC_F10, KC_TRNS,
     KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS,                                                      KC_NO, KC_TRNS, TO(0), KC_NO, KC_NO
   ),
@@ -164,6 +164,30 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     default:
       return TAPPING_TERM;
   }
+}
+#endif
+
+#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(_LOWER, KC_NO):
+        case LT(_RAISE, KC_NO):
+            return true;
+        default:
+            return false;
+    }
+}
+#endif
+
+#ifdef PERMISSIVE_HOLD_PER_KEY
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LSFT_T(KC_F):
+        case RSFT_T(KC_J):
+            return true;
+        default:
+            return false;
+    }
 }
 #endif
 
